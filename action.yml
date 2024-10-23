@@ -11,6 +11,10 @@ inputs:
     description: 'OpenAI API model.'
     required: false
     default: 'gpt-4o'
+  role_description:
+    description: 'Role description for the AI.'
+    required: false
+    default: 'You are an expert developer.'
   max_tokens:
     description: 'Maximum number of tokens that can be generated per analysis.'
     required: false

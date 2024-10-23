@@ -8,6 +8,8 @@ import parseDiff, { Chunk, File } from 'parse-diff'
 const GITHUB_TOKEN: string = core.getInput('GITHUB_TOKEN')
 const OPENAI_API_KEY: string = core.getInput('OPENAI_API_KEY')
 const OPENAI_API_MODEL: string = core.getInput('OPENAI_API_MODEL')
+const ROLE_DESCRIPTION: string =
+  core.getInput('role_description') ?? 'You are an expert developer.'
 const MAX_TOKENS: number = Number(core.getInput('max_tokens'))
 /**
  * @see https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/json-mode?tabs=python
@@ -90,7 +92,7 @@ async function analyzeCode(
 }
 
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
-  return `Your task is to review pull requests. Instructions:
+  return `${ROLE_DESCRIPTION}. Your task is to review pull requests. Instructions:
 - Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
 - Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
