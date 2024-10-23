@@ -1,0 +1,28 @@
+x-base: &base
+  tty: true
+  env_file: .env.local
+  networks:
+    zapass.localhost: {}
+  volumes:
+    - .devcontainer/.yarnrc:/root/.yarnrc:ro
+    - .devcontainer/.npmrc:/root/.npmrc:ro
+    - .:/workspace
+x-node: &node
+  <<: *base
+  build:
+    context: .
+    dockerfile: .devcontainer/Dockerfile.node20
+
+services:
+  ai-codereviewer:
+    <<: *node
+    container_name: ai-codereviewer.zapass.localhost
+    hostname: ai-codereviewer.zapass.localhost
+    working_dir: /workspace
+    env_file: .env
+    volumes:
+      - ai-codereviewer-vscode-server:/root/.vscode-server
+      - .devcontainer/.npmrc:/root/.npmrc:ro
+      - .:/workspace
+volumes:
+  ai-codereviewer-vscode-server: {}

@@ -1,0 +1,109 @@
+{
+  "name": "@zapass/ai-codereviewer.zapass.localhost",
+  "dockerComposeFile": ["../docker-compose.yml", "./docker-compose.local.yml"],
+  "service": "ai-codereviewer",
+  "runServices": ["ai-codereviewer"],
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": ["esbenp.prettier-vscode", "joelday.docthis"],
+      "settings": {
+        "editor.autoIndent": "advanced",
+        "editor.links": true,
+        "editor.rulers": [80, 120],
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": false,
+        "editor.linkedEditing": true,
+        "prettier.semi": false,
+        "prettier.singleQuote": true,
+        "prettier.trailingComma": "es5",
+        "prettier.printWidth": 80,
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "search.exclude": {
+          "**/.yarn": true,
+          "**/.pnp.*": true,
+          "**/node_modules/**/*": true,
+          "**/.next/**/*": true,
+          "**/.turbo/**/*": true,
+          "**/tmp": true,
+          "**/storybook-static": true,
+          "**/.vercel": true,
+          "**/.apps": true,
+          "**/.packages": true
+        },
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/node_modules/*/**": true,
+          "**/.hg/store/**": true,
+          "**/.next/**/*": true,
+          "**/.turbo/**/*": true,
+          "**/dist/**/*": true,
+          "**/tmp": true,
+          "**/storybook-static": true,
+          "**/.vercel": true,
+          "**/.apps": true,
+          "**/.packages": true
+        },
+        "files.exclude": {
+          "**/.git": true,
+          "**/.svn": true,
+          "**/.hg": true,
+          "**/CVS": true,
+          "**/.DS_Store": true,
+          "**/Thumbs.db": true,
+          "**/node_modules": true,
+          "**/.next": true,
+          "**/.turbo": true,
+          "**/.vscode": true,
+          "**/.eslintrc*": true,
+          "**/.gitignore": true,
+          "**/.prettier*": true,
+          "**/.editorconfig": true,
+          "**/.yarnrc*": true,
+          "**/.env": true,
+          "**/.devcontainer*": true,
+          "**/.yarn": true,
+          "**/tmp": true,
+          ".firebaserc": true,
+          "pnpm-*.yaml": true,
+          "**/next-env.d.ts": true,
+          "**/.apps": true,
+          "**/.packages": true
+        },
+        "workbench.colorCustomizations": {
+          "activityBar.activeBackground": "#2ecef9",
+          "activityBar.background": "#2ecef9",
+          "activityBar.foreground": "#15202b",
+          "activityBar.inactiveForeground": "#15202b99",
+          "activityBarBadge.background": "#d906ac",
+          "activityBarBadge.foreground": "#e7e7e7",
+          "commandCenter.border": "#15202b99",
+          "sash.hoverBorder": "#2ecef9",
+          "statusBar.background": "#07bced",
+          "statusBar.foreground": "#15202b",
+          "statusBarItem.hoverBackground": "#0695bb",
+          "statusBarItem.remoteBackground": "#07bced",
+          "statusBarItem.remoteForeground": "#15202b",
+          "titleBar.activeBackground": "#07bced",
+          "titleBar.activeForeground": "#15202b",
+          "titleBar.inactiveBackground": "#07bced99",
+          "titleBar.inactiveForeground": "#15202b99"
+        },
+        "peacock.remoteColor": "#07bced",
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        "typescript.tsdk": "node_modules/typescript/lib"
+      }
+    }
+  }
+}

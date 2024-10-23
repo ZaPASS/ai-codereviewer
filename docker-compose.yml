@@ -1,0 +1,4 @@
+networks:
+  zapass.localhost:
+    name: zapass.localhost
+    external: true
