@@ -11,6 +11,8 @@ const OPENAI_API_MODEL: string = core.getInput('OPENAI_API_MODEL')
 const ROLE_DESCRIPTION: string =
   core.getInput('role_description') ?? 'You are an expert developer.'
 const MAX_TOKENS: number = Number(core.getInput('max_tokens'))
+const EXTRA_INSTRUCTIONS: string = core.getInput('extra_instructions')
+
 /**
  * @see https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/json-mode?tabs=python
  * gpt-35-turbo (1106)
@@ -101,6 +103,7 @@ Your task is to review pull requests. Instructions:
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
+${EXTRA_INSTRUCTIONS}
 
 Review the following code diff in the file "${
     file.to

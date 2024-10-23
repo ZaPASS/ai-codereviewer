@@ -19,6 +19,10 @@ inputs:
     description: 'Maximum number of tokens that can be generated per analysis.'
     required: false
     default: '700'
+  extra_instructions:
+    description: 'Extra instructions to be added to the text prompt.'
+    required: false
+    default: ''
   exclude:
     description: 'Glob patterns to exclude files from the diff analysis'
     required: false
