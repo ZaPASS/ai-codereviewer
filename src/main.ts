@@ -8,6 +8,7 @@ import parseDiff, { Chunk, File } from 'parse-diff'
 const GITHUB_TOKEN: string = core.getInput('GITHUB_TOKEN')
 const OPENAI_API_KEY: string = core.getInput('OPENAI_API_KEY')
 const OPENAI_API_MODEL: string = core.getInput('OPENAI_API_MODEL')
+const MAX_TOKENS: number = Number(core.getInput('max_tokens'))
 
 const octokit = new Octokit({ auth: GITHUB_TOKEN })
 
@@ -117,7 +118,7 @@ async function getAIResponse(prompt: string): Promise<Array<{
   const queryConfig = {
     model: OPENAI_API_MODEL,
     temperature: 0.2,
-    max_tokens: 700,
+    max_tokens: MAX_TOKENS,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
