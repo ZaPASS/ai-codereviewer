@@ -9,6 +9,16 @@ const GITHUB_TOKEN: string = core.getInput('GITHUB_TOKEN')
 const OPENAI_API_KEY: string = core.getInput('OPENAI_API_KEY')
 const OPENAI_API_MODEL: string = core.getInput('OPENAI_API_MODEL')
 const MAX_TOKENS: number = Number(core.getInput('max_tokens'))
+/**
+ * @see https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/json-mode?tabs=python
+ * gpt-35-turbo (1106)
+ * gpt-35-turbo (0125)
+ * gpt-4 (1106-Preview)
+ * gpt-4 (0125-Preview)
+ * gpt-4o
+ * gpt-4o-mini
+ */
+const SUPPORTS_JSON_FORMAT = ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo']
 
 const octokit = new Octokit({ auth: GITHUB_TOKEN })
 
@@ -124,11 +134,12 @@ async function getAIResponse(prompt: string): Promise<Array<{
     presence_penalty: 0,
   }
 
+  let response: OpenAI.Chat.Completions.ChatCompletion | null = null
   try {
-    const response = await openai.chat.completions.create({
+    response = await openai.chat.completions.create({
       ...queryConfig,
       // return JSON if the model supports it:
-      ...(OPENAI_API_MODEL === 'gpt-4-1106-preview'
+      ...(SUPPORTS_JSON_FORMAT.includes(OPENAI_API_MODEL)
         ? { response_format: { type: 'json_object' } }
         : {}),
       messages: [
@@ -139,10 +150,22 @@ async function getAIResponse(prompt: string): Promise<Array<{
       ],
     })
 
+    const finish_response = response.choices[0].finish_reason
+    if (finish_response === 'length') {
+      console.log(
+        'The maximum context length has been exceeded. Please reduce the length of the code snippets.'
+      )
+      return null
+    }
+
     const res = response.choices[0].message?.content?.trim() || '{}'
-    return JSON.parse(res).reviews
+    if (res.startsWith('```json')) {
+      return JSON.parse(res.slice(7, -3)).reviews
+    } else {
+      return JSON.parse(res).reviews
+    }
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error:', error, response?.choices[0]?.message?.content)
     return null
   }
 }
